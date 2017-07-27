@@ -3,8 +3,10 @@
 (defn format-grid [coordinates grid x y]
   (let [highest-x (max x (apply max (map #(get % 0) coordinates)))
         highest-y (max y (apply max (map #(get % 1) coordinates)))]
-      (println (str  highest-x highest-y))))
+      (if (= grid [])
+        (let [updated-grid (conj (repeat (inc highest-y) (repeat (inc highest-x) " " )))]
+          updated-grid))))
 
 (defn display [coordinates]
-  (println (format-grid coordinates [] 0 0)))
+  (format-grid coordinates [] 0 0 ))
 

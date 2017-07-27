@@ -4,5 +4,5 @@
 
 (describe "Displays"
           (it "only the cell if it is in position 0 1"
-              (should-contain "1010"
-                              (with-out-str (display [[10 0] [0 10]])))))
+              (should= [[" "] [" "]]
+                (display [[0 0] [0 1]]))))
