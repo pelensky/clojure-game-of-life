@@ -1,6 +1,6 @@
 (ns game-of-life.display)
 
-(defn format-grid [coordinates grid x y]
+(defn format-rows [coordinates grid x y]
   (if (empty? coordinates)
     grid
     (do 
@@ -18,5 +18,5 @@
               )))))))
 
 (defn display [coordinates]
-  (format-grid coordinates [] 0 0 ))
+  (format-rows coordinates [] 0 0 ))
 
