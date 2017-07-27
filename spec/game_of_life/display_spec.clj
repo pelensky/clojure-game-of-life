@@ -4,5 +4,5 @@
 
 (describe "Displays"
           (it "only the cell if it is in position 0 1"
-              (should= [[" "] [" "]]
+              (should= [["*"] ["*"]]
                 (display [[0 0] [0 1]]))))
