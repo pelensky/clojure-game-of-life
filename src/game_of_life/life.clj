@@ -11,8 +11,7 @@
       map #([(+ x (get % 0)) (+ y (get % 1))]) neighbours))
 
 (defn count-live-neighbours [cell grid]
-   (let [neighbours (find-all-neighbours cell)]
-     0))
+  (count (clojure.set/intersection (set grid) (set (find-all-neighbours cell)))))
 
 (defn live-on? [cell grid]
    true)

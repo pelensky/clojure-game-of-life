@@ -23,6 +23,11 @@
           (it "Finds all neighbours of a cell"
               (should= [[-1 1] [0 1] [1 1] [-1 0] [1 0] [-1 -1] [0 -1] [1 -1] ]
                        (find-all-neighbours [0 0])))
-          (it "Counts the live neighbours of a cell"
+
+          (it "Counts the live neighbours of a grid with one cell"
               (should= 0
-                       (count-live-neighbours [0 0] [[0 0]]))))
+                       (count-live-neighbours [0 0] [[0 0]])))
+
+          (it "counts the live neighbours of a grid with two cells"
+              (should= 1
+                       (count-live-neighbours [0 0] [[0 0] [0 1]]))))
