@@ -51,4 +51,6 @@
               (should-contain ""
                               (with-out-str (display []))))
 
-          )
+          (it "prints a grid with a single value in 0 0 as a star"
+              (should-contain "*"
+                              (with-out-str (display [[0 0]])))))

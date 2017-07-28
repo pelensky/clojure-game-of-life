@@ -15,6 +15,12 @@
               updated-grid (assoc-in grid [current-y current-x] "*")]
           (recur updated-coordinates updated-grid x y)) ))))
 
+(defn- print-board [coordinates]
+  (let [formatted-grid (format-rows coordinates [] 0 0)
+        formatted-rows (for [row formatted-grid]
+          (clojure.string/join "" row))]
+    (println (clojure.string/join "\n" formatted-rows))))
+
 (defn display [coordinates]
-  (format-rows coordinates [] 0 0 ))
+  (print-board coordinates))
 
