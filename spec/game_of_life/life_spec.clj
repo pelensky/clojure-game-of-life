@@ -42,4 +42,20 @@
 
           (it "should count two live neighbours"
               (should= 2
-                       (count-live-neighbours [1 0] [[0 0] [1 0] [2 0]]))))
+                       (count-live-neighbours [1 0] [[0 0] [1 0] [2 0]])))
+
+          (it "should count all live neighbours"
+              (should= 8
+                       (count-live-neighbours [5 5] [[4 6] [5 6] [6 6] [4 5] [5 5] [6 5] [4 4] [5 4] [6 4]])))
+
+          (it "finds all non-living neighbours"
+              (should= #{[-1 1] [0 1] [1 1] [-1 0] [1 0] [-1 -1] [0 -1] [1 -1] }
+                (find-non-living-neighbours [0 0] [[0 0]])))
+
+          (it "finds all non living neighbours of a cell not in position 0 0"
+              (should= #{[0 2] [1 2] [2 2] [0 1] [2 1] [0 0] [1 0] [2 0]}
+                       (find-non-living-neighbours [1 1] [[1 1]])))
+
+          (it "finds all non living neighbours when there are actually some neighbours"
+              (should= #{[-1 1] [1 1] [-1 0] [1 0]}
+                       (find-non-living-neighbours [0 0] [[0 1] [-1 -1] [0 -1] [1 -1]]))))

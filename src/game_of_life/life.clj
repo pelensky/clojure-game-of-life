@@ -11,6 +11,9 @@
 (defn find-all-neighbours [cell]
   (map #(update-coordinate cell %) neighbours))
 
+(defn find-non-living-neighbours [cell grid]
+  (clojure.set/difference  (set (find-all-neighbours cell)) (set grid)))
+
 (defn count-live-neighbours [cell grid]
   (count (clojure.set/intersection (set grid) (set (find-all-neighbours cell)))))
 
