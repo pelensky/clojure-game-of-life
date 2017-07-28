@@ -12,15 +12,18 @@
 (defn- updated [grid coordinates]
   (assoc-in grid [(current-y coordinates) (current-x coordinates)] "*"))
 
+(defn- highest [letter position coordinates]
+  (inc (max letter (apply max (map #(get % position) coordinates)))))
+
+(defn- empty-grid-correct-size [coordinates grid x y]
+  (into grid (conj (repeat (highest y 1 coordinates) (into grid (repeat (highest x 0 coordinates) " "))))))
+
 (defn create-grid [coordinates grid x y]
   (if (empty? coordinates)
     grid
-    (let [highest-x (max x (apply max (map #(get % 0) coordinates)))
-          highest-y (max y (apply max (map #(get % 1) coordinates)))
-          updated-grid (into grid (conj (repeat (inc highest-y) (into [] (repeat (inc highest-x) " " )))))]
-      (if (empty? grid)
-        (recur coordinates updated-grid highest-x highest-y )
-        (recur (remaining coordinates) (updated grid coordinates) x y) ))))
+    (if (empty? grid)
+        (recur coordinates (empty-grid-correct-size coordinates grid x y) (highest x 0 coordinates) (highest y 1 coordinates) )
+        (recur (remaining coordinates) (updated grid coordinates) x y) )))
 
 (defn- format-rows [grid]
   (for [row grid]
