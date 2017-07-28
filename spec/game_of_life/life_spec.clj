@@ -4,4 +4,6 @@
 
 
 (describe "Life"
-          )
+          (it "An empty grid stays empty"
+              (should= []
+                       (evolve []))))
