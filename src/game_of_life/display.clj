@@ -1,5 +1,14 @@
 (ns game-of-life.display)
 
+(defn- current-x [coordinates]
+  (get (first coordinates) 0))
+
+(defn- current-y [coordinates]
+  (get (first coordinates) 1))
+
+(defn- remaining [coordinates]
+  into [] (rest coordinates))
+
 (defn create-grid [coordinates grid x y]
   (if (empty? coordinates)
     grid
@@ -9,11 +18,8 @@
       (if (empty? grid)
         (recur coordinates updated-grid highest-x highest-y )
         (let [current-coordinates (first coordinates)
-              updated-coordinates (into [] (rest coordinates))
-              current-x (get current-coordinates 0)
-              current-y (get current-coordinates 1)
-              updated-grid (assoc-in grid [current-y current-x] "*")]
-          (recur updated-coordinates updated-grid x y)) ))))
+              updated-grid (assoc-in grid [(current-y coordinates) (current-x coordinates)] "*")]
+          (recur (remaining coordinates) updated-grid x y)) ))))
 
 (defn- format-rows [grid]
   (for [row grid]
