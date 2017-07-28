@@ -20,9 +20,17 @@
               (should= true
                        (live-on? [0 0] [[-1 0] [0 0] [-1 -1] [0 -1]])))
 
+          (it "A cell with 4 live neighbours dies"
+              (should= false
+                       (live-on? [0 0] [[-1 -1] [-1 +1] [0 0] [+1 +1] [+1 -1]])))
+
           (it "Finds all neighbours of a cell"
               (should= [[-1 1] [0 1] [1 1] [-1 0] [1 0] [-1 -1] [0 -1] [1 -1] ]
                        (find-all-neighbours [0 0])))
+
+          (it "Finds all neighbours of a cell in a different position"
+              (should= [[0 2] [1 2] [2 2] [0 1] [2 1] [0 0] [1 0] [2 0]]
+                       (find-all-neighbours [1 1])))
 
           (it "Counts the live neighbours of a grid with one cell"
               (should= 0
@@ -30,4 +38,8 @@
 
           (it "counts the live neighbours of a grid with two cells"
               (should= 1
-                       (count-live-neighbours [0 0] [[0 0] [0 1]]))))
+                       (count-live-neighbours [0 0] [[0 0] [0 1]])))
+
+          (it "should count two live neighbours"
+              (should= 2
+                       (count-live-neighbours [1 0] [[0 0] [1 0] [2 0]]))))
