@@ -27,5 +27,10 @@
       true
       false)))
 
+(defn regenerate? [cell grid]
+  (if (= 3 (count-live-neighbours cell grid))
+    true
+    false))
+
 (defn evolve [grid]
   [] )

@@ -24,6 +24,18 @@
               (should= false
                        (live-on? [0 0] [[-1 -1] [-1 +1] [0 0] [+1 +1] [+1 -1]])))
 
+          (it "A dead cell with 2 live neighbours does not regenerate"
+              (should= false
+                       (regenerate? [1 1] [[2 0] [0 2]])))
+
+          (it "A dead cell with 4 live neighbours does not regenerate"
+              (should= false
+                       (regenerate? [1 1] [[0 0] [2 0] [1 0] [0 2]])))
+
+          (it "A dead cell with 3 live neighbours regenerates"
+              (should= true
+                       (regenerate? [1 1] [ [0 0] [0 1] [2 2]] )))
+
           (it "Finds all neighbours of a cell"
               (should= [[-1 1] [0 1] [1 1] [-1 0] [1 0] [-1 -1] [0 -1] [1 -1] ]
                        (find-all-neighbours [0 0])))
@@ -62,8 +74,8 @@
 
           (it "finds all non living neighbours of multiple cells"
               (should= #{[0 0] [1 0] [2 0] [0 1] [2 1] [3 1] [0 2] [1 2] [3 2] [1 3] [2 3] [3 3]}
-                       (find-all-non-living-neighbours [[1 1] [2 2]] ))))
+                       (find-all-non-living-neighbours [[1 1] [2 2]] )))
 
           (it "finds all non living neighbours of multiple cells - other"
               (should= #{[4 1] [5 1] [6 1] [4 2] [6 2] [7 2] [8 2] [4 3] [5 3] [6 3] [8 3] [6 4] [7 4] [8 4] }
-                       (find-all-non-living-neighbours [[5 2] [7 3]] ))) 
+                       (find-all-non-living-neighbours [[5 2] [7 3]] ))))
