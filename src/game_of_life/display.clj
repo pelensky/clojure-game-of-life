@@ -9,6 +9,9 @@
 (defn- remaining [coordinates]
   into [] (rest coordinates))
 
+(defn- updated [grid coordinates]
+  (assoc-in grid [(current-y coordinates) (current-x coordinates)] "*"))
+
 (defn create-grid [coordinates grid x y]
   (if (empty? coordinates)
     grid
@@ -17,9 +20,7 @@
           updated-grid (into grid (conj (repeat (inc highest-y) (into [] (repeat (inc highest-x) " " )))))]
       (if (empty? grid)
         (recur coordinates updated-grid highest-x highest-y )
-        (let [current-coordinates (first coordinates)
-              updated-grid (assoc-in grid [(current-y coordinates) (current-x coordinates)] "*")]
-          (recur (remaining coordinates) updated-grid x y)) ))))
+        (recur (remaining coordinates) (updated grid coordinates) x y) ))))
 
 (defn- format-rows [grid]
   (for [row grid]
