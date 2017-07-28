@@ -8,10 +8,10 @@
           updated-grid (into grid (conj (repeat (inc highest-y) (into [] (repeat (inc highest-x) " " )))))]
       (if (empty? grid)
         (recur coordinates updated-grid highest-x highest-y )
-        (let [current-coordinate (first coordinates)
+        (let [current-coordinates (first coordinates)
               updated-coordinates (into [] (rest coordinates))
-              current-x (get current-coordinate 0)
-              current-y (get current-coordinate 1)
+              current-x (get current-coordinates 0)
+              current-y (get current-coordinates 1)
               updated-grid (assoc-in grid [current-y current-x] "*")]
           (recur updated-coordinates updated-grid x y)) ))))
 
