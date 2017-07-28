@@ -1,6 +1,6 @@
 (ns game-of-life.display)
 
-(defn format-rows [coordinates grid x y]
+(defn create-grid [coordinates grid x y]
   (if (empty? coordinates)
     grid
     (let [highest-x (max x (apply max (map #(get % 0) coordinates)))
@@ -15,10 +15,15 @@
               updated-grid (assoc-in grid [current-y current-x] "*")]
           (recur updated-coordinates updated-grid x y)) ))))
 
+(defn- format-rows [grid]
+  (for [row grid]
+    (clojure.string/join "" row)))
+
+(defn- format-grid [grid]
+  (clojure.string/join "\n" grid))
+
 (defn display [coordinates]
-  (let [formatted-grid (format-rows coordinates [] 0 0)
-        formatted-rows (for [row formatted-grid]
-          (clojure.string/join "" row))]
-    (println (clojure.string/join "\n" formatted-rows))) 
-  )
+  (let [formatted-grid (create-grid coordinates [] 0 0)
+        formatted-rows (format-rows formatted-grid)]
+    (println (format-grid formatted-rows))))
 
