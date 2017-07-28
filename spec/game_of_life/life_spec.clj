@@ -58,4 +58,12 @@
 
           (it "finds all non living neighbours when there are actually some neighbours"
               (should= #{[-1 1] [1 1] [-1 0] [1 0]}
-                       (find-non-living-neighbours [0 0] [[0 1] [-1 -1] [0 -1] [1 -1]]))))
+                       (find-non-living-neighbours [0 0] [[0 1] [-1 -1] [0 -1] [1 -1]])))
+
+          (it "finds all non living neighbours of multiple cells"
+              (should= #{[0 0] [1 0] [2 0] [0 1] [2 1] [3 1] [0 2] [1 2] [3 2] [1 3] [2 3] [3 3]}
+                       (find-all-non-living-neighbours [[1 1] [2 2]] ))))
+
+          (it "finds all non living neighbours of multiple cells - other"
+              (should= #{[4 1] [5 1] [6 1] [4 2] [6 2] [7 2] [8 2] [4 3] [5 3] [6 3] [8 3] [6 4] [7 4] [8 4] }
+                       (find-all-non-living-neighbours [[5 2] [7 3]] ))) 

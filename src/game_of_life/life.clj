@@ -14,6 +14,10 @@
 (defn find-non-living-neighbours [cell grid]
   (clojure.set/difference  (set (find-all-neighbours cell)) (set grid)))
 
+(defn find-all-non-living-neighbours [grid]
+  (reduce into #{}
+    (map #(find-non-living-neighbours % grid) grid)))
+
 (defn count-live-neighbours [cell grid]
   (count (clojure.set/intersection (set grid) (set (find-all-neighbours cell)))))
 
