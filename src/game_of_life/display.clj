@@ -18,13 +18,6 @@
 (defn- empty-grid-correct-size [coordinates grid x y]
   (into grid (conj (repeat (highest y 1 coordinates) (into grid (repeat (highest x 0 coordinates) " "))))))
 
-(defn create-grid [coordinates grid x y]
-  (if (empty? coordinates)
-    grid
-    (if (empty? grid)
-        (recur coordinates (empty-grid-correct-size coordinates grid x y) (highest x 0 coordinates) (highest y 1 coordinates) )
-        (recur (remaining coordinates) (updated grid coordinates) x y) )))
-
 (defn- format-rows [grid]
   (for [row grid]
     (clojure.string/join "" row)))
@@ -32,8 +25,13 @@
 (defn- format-grid [grid]
   (clojure.string/join "\n" grid))
 
+(defn create-grid [coordinates grid x y]
+  (if (empty? coordinates)
+    (format-grid (format-rows grid))
+    (if (empty? grid)
+        (recur coordinates (empty-grid-correct-size coordinates grid x y) (highest x 0 coordinates) (highest y 1 coordinates) )
+        (recur (remaining coordinates) (updated grid coordinates) x y) )))
+
 (defn display [coordinates]
-  (let [formatted-grid (create-grid coordinates [] 0 0)
-        formatted-rows (format-rows formatted-grid)]
-    (println (format-grid formatted-rows))))
+  (println (create-grid coordinates [] 0 0)))
 
