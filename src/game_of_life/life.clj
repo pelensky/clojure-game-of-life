@@ -33,4 +33,5 @@
     false))
 
 (defn evolve [grid]
-  [] )
+  (let [regenerated (clojure.set/select #(regenerate? % grid) (find-all-non-living-neighbours grid))]
+   regenerated))

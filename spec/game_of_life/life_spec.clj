@@ -5,12 +5,16 @@
 
 (describe "Life"
           (it "An empty grid stays empty"
-              (should= []
+              (should= #{}
                        (evolve [])))
 
           (it "A single living cell can not support life"
-              (should= []
-                      (evolve [[0 0]])))
+              (should= #{}
+                       (evolve [[0 0]])))
+
+          (it "Returns the next generation of cells where none live on but one regenerates"
+              (should= #{[1 1]}
+                (evolve [[0 1] [1 0] [2 2]])))
 
           (it "A live cell with 2 live neighbours lives on"
               (should= true
