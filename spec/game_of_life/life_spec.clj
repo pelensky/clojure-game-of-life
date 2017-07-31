@@ -16,6 +16,10 @@
               (should= #{[1 1]}
                 (evolve [[0 1] [1 0] [2 2]])))
 
+          (it "Returns the next generation of cells where some live on"
+              (should= #{[0 0] [0 1] [1 0] [1 1]}
+                       (evolve [[0 0] [0 1] [1 0]])))
+
           (it "A live cell with 2 live neighbours lives on"
               (should= true
                     (live-on? [1 0] [[0 0] [1 0] [2 0]])))

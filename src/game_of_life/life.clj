@@ -33,5 +33,6 @@
     false))
 
 (defn evolve [grid]
-  (let [regenerated (clojure.set/select #(regenerate? % grid) (find-all-non-living-neighbours grid))]
-   regenerated))
+  (let [regenerated (clojure.set/select #(regenerate? % grid) (find-all-non-living-neighbours grid))
+        living (clojure.set/select #(live-on? % grid) (set grid))]
+    (clojure.set/union living regenerated)))
