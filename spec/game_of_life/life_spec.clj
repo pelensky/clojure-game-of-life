@@ -20,6 +20,10 @@
               (should= #{[0 0] [0 1] [1 0] [1 1]}
                        (evolve [[0 0] [0 1] [1 0]])))
 
+          (it "Works for bigger grids"
+              (should= #{[0 0] [2 3] [1 3] [1 5] [2 4] [1 -1] [2 0] [2 1] [1 2] [0 1] [1 4]}
+                       (evolve #{ [0 0] [1 0] [2 0] [0 1] [2 1] [2 3] [1 4] [2 4] [0 6] [4 6]})))
+
           (it "A live cell with 2 live neighbours lives on"
               (should= true
                     (live-on? [1 0] [[0 0] [1 0] [2 0]])))
