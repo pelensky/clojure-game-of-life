@@ -6,23 +6,23 @@
 (describe "Life"
           (it "An empty grid stays empty"
               (should= #{}
-                       (evolve [])))
+                       (evolve #{})))
 
           (it "A single living cell can not support life"
               (should= #{}
-                       (evolve [[0 0]])))
+                       (evolve #{[0 0]})))
 
           (it "Returns the next generation of cells where none live on but one regenerates"
               (should= #{[1 1]}
-                (evolve [[0 1] [1 0] [2 2]])))
+                (evolve #{[0 1] [1 0] [2 2]})))
 
           (it "Returns the next generation of cells where some live on"
               (should= #{[0 0] [0 1] [1 0] [1 1]}
-                       (evolve [[0 0] [0 1] [1 0]])))
+                       (evolve #{[0 0] [0 1] [1 0]} )))
 
           (it "Works for bigger grids"
               (should= #{[0 0] [2 3] [1 3] [1 5] [2 4] [1 -1] [2 0] [2 1] [1 2] [0 1] [1 4]}
-                       (evolve #{ [0 0] [1 0] [2 0] [0 1] [2 1] [2 3] [1 4] [2 4] [0 6] [4 6]})))
+                       (evolve #{[0 0] [1 0] [2 0] [0 1] [2 1] [2 3] [1 4] [2 4] [0 6] [4 6]})))
 
           (it "A live cell with 2 live neighbours lives on"
               (should= true
@@ -33,15 +33,15 @@
                        (live-on? [0 0] [[-1 0] [0 0] [-1 -1] [0 -1]])))
 
           (it "A cell with 4 live neighbours dies"
-              (should= false
+              (should= nil
                        (live-on? [0 0] [[-1 -1] [-1 +1] [0 0] [+1 +1] [+1 -1]])))
 
           (it "A dead cell with 2 live neighbours does not regenerate"
-              (should= false
+              (should= nil
                        (regenerate? [1 1] [[2 0] [0 2]])))
 
           (it "A dead cell with 4 live neighbours does not regenerate"
-              (should= false
+              (should= nil
                        (regenerate? [1 1] [[0 0] [2 0] [1 0] [0 2]])))
 
           (it "A dead cell with 3 live neighbours regenerates"
