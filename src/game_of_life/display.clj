@@ -1,5 +1,21 @@
 (ns game-of-life.display)
 
+(defn clear-screen []
+  (print (str (char 27) "[2J"))
+  (print (str (char 27) "[;H")))
+
+(defn increment-coordinates [coordinates lowest position]
+  (if (> 0 lowest)
+    (for [cell coordinates]
+      (update cell position #(+ (- lowest) %)))
+    coordinates))
+
+(defn correct-coordinates [coordinates]
+  (let [lowest-x (apply min (map #(get % 0) coordinates))
+        lowest-y (apply min (map #(get % 1) coordinates))
+        incremented-x (increment-coordinates coordinates lowest-x 0)]
+    (into #{} (increment-coordinates incremented-x lowest-y 1))))
+
 (defn- current-x [coordinates]
   (get (first coordinates) 0))
 
@@ -29,9 +45,15 @@
   (if (empty? coordinates)
     (format-grid (format-rows grid))
     (if (empty? grid)
-        (recur coordinates (empty-grid-correct-size coordinates grid x y) (highest x 0 coordinates) (highest y 1 coordinates) )
-        (recur (remaining coordinates) (updated grid coordinates) x y) )))
+      (recur (correct-coordinates coordinates) (empty-grid-correct-size (correct-coordinates coordinates) grid x y) (highest x 0 (correct-coordinates coordinates)) (highest y 1 (correct-coordinates coordinates)) )
+      (recur (remaining (correct-coordinates coordinates)) (updated grid (correct-coordinates coordinates)) x y) )) )
 
 (defn display [coordinates]
   (println (create-grid coordinates [] 0 0)))
+
+(defn welcome []
+  (println "Game of Life"))
+
+(defn game-over []
+  (println "Game of Life Complete"))
 

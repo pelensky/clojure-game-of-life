@@ -29,5 +29,25 @@
 
           (it "prints living cells in the same row"
               (should-contain "***  *"
-                              (with-out-str (display #{[0 0] [1 0] [2 0] [5 0]} )))))
+                              (with-out-str (display #{[0 0] [1 0] [2 0] [5 0]} ))))
+
+          (it "prints Game of Life"
+              (should-contain "Game of Life"
+                              (with-out-str (welcome))))
+
+          (it "prints game over"
+              (should-contain "Game of Life Complete"
+                            (with-out-str (game-over))))
+
+          (it "bumps up every negative number"
+              (should= #{[0 0]}
+                       (correct-coordinates #{[-1 -1]} )))
+
+          (it "works on the lowest number"
+              (should= #{[0 0] [1 0]}
+                       (correct-coordinates #{[-2 0] [-1 0]})))
+
+          (it "does not affect positive numbers"
+              (should= #{ [1 1] [2 2]}
+                       (correct-coordinates #{[1 1] [2 2]}))))
 
