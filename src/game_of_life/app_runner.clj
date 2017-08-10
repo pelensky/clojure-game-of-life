@@ -4,10 +4,10 @@
 
 (defn generations [world]
   (let [next-generation (life/evolve world)]
-  (display/display world)
-  (if (>= 0 (count world))
-    (display/game-over)
-    (recur next-generation))))
+    (display/display world)
+    (if (>= 0 (count world))
+      (display/game-over)
+      (recur next-generation))))
 
 (defn starting-coordinates [world]
   (let [updated-world (conj world [(rand-int 5) (rand-int 5)])]

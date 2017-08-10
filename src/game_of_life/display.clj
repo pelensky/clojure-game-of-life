@@ -1,17 +1,26 @@
 (ns game-of-life.display)
 
-(defn correct-coordinates [grid]
-  (let [lowest-x (apply min (map #(get % 0) grid))
-        lowest-y (apply min (map #(get % 1) grid))
-        incremented-x (if (> 0 lowest-x)
-                        (for [cell grid]
-                          (update cell 0 #(+ (- lowest-x) %)))
-                        grid)
-        incremented-y (if (> 0 lowest-y)
-                        (for [cell incremented-x]
-                          (update cell 1 #(+ (- lowest-y) %)))
-                          incremented-x)]
-    (into #{} incremented-y)))
+(defn clear-screen []
+  (print (str (char 27) "[2J"))
+  (print (str (char 27) "[;H")))
+
+(defn increment-x-coordinates [coordinates lowest-x]
+  (if (> 0 lowest-x)
+    (for [cell coordinates]
+      (update cell 0 #(+ (- lowest-x) %)))
+    coordinates))
+
+(defn increment-y-coordinates [coordinates lowest-y]
+  (if (> 0 lowest-y)
+    (for [cell coordinates]
+      (update cell 1 #(+ (- lowest-y) %)))
+    coordinates))
+
+(defn correct-coordinates [coordinates]
+  (let [lowest-x (apply min (map #(get % 0) coordinates))
+        lowest-y (apply min (map #(get % 1) coordinates))
+        incremented-x (increment-x-coordinates coordinates lowest-x)]
+    (into #{} (increment-y-coordinates incremented-x lowest-y))))
 
 (defn- current-x [coordinates]
   (get (first coordinates) 0))
