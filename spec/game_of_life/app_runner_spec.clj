@@ -4,10 +4,6 @@
 
 (describe "App Runner"
 
-         (it "Prints the title"
-             (should-contain "Game of Life"
-                            (with-out-str(start)))) 
-         
          (it "gets a set of 10 random starting coordinates"
              (should= 10
                       (count (starting-coordinates #{})))))

@@ -1,5 +1,5 @@
-(ns game-of-life.core)
+(ns game-of-life.core
+  (:require [game-of-life.app-runner :as app-runner]))
 
-(defn -main
-  [& args]
-  (println "Hello World"))
+(defn -main [& args]
+  (app-runner/start))

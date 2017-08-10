@@ -33,5 +33,17 @@
 
           (it "prints Game of Life"
               (should-contain "Game of Life"
-                              (with-out-str (welcome)))))
+                              (with-out-str (welcome))))
+
+          (it "prints game over"
+              (should-contain "Game of Life Complete"
+                            (with-out-str (game-over))))
+
+          (it "bumps up every negative number"
+              (should= #{[0 0]}
+                       (correct-coordinates #{[-1 -1]} )))
+
+          (it "works on the lowest number"
+              (should= #{[0 0] [1 0]}
+                       (correct-coordinates #{[-2 0] [-1 0]}))))
 

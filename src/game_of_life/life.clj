@@ -1,4 +1,5 @@
-(ns game-of-life.life)
+(ns game-of-life.life
+  (:require clojure.set))
 
 (def fewest-neighbours-to-stay-living 2)
 (def most-neighbours-to-stay-living 3)

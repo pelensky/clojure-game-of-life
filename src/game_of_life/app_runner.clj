@@ -2,8 +2,13 @@
   (:require [game-of-life.display :as display]
             [game-of-life.life :as life]))
 
-(defn start []
-  (display/welcome))
+(defn generations [world]
+  (println world)
+  (let [next-generation (life/evolve world)]
+  (display/display world)
+  (if (>= 0 (count world))
+    (display/game-over)
+    (recur next-generation))))
 
 (defn starting-coordinates [world]
   (let [updated-world (conj world [(rand-int 5) (rand-int 5)])]
@@ -11,4 +16,7 @@
       world
       (recur updated-world))))
 
+(defn start []
+  (display/welcome)
+  (generations (starting-coordinates #{})))
 
