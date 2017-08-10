@@ -35,3 +35,6 @@
 (defn display [coordinates]
   (println (create-grid coordinates [] 0 0)))
 
+(defn welcome []
+  (println "Game of Life"))
+

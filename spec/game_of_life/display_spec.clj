@@ -29,5 +29,9 @@
 
           (it "prints living cells in the same row"
               (should-contain "***  *"
-                              (with-out-str (display #{[0 0] [1 0] [2 0] [5 0]} )))))
+                              (with-out-str (display #{[0 0] [1 0] [2 0] [5 0]} ))))
+
+          (it "prints Game of Life"
+              (should-contain "Game of Life"
+                              (with-out-str (welcome)))))
 
