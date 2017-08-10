@@ -3,10 +3,14 @@
 (defn correct-coordinates [grid]
   (let [lowest-x (apply min (map #(get % 0) grid))
         lowest-y (apply min (map #(get % 1) grid))
-        incremented-x (for [cell grid]
-                        (update cell 0 #(+ (- lowest-x) %)))
-        incremented-y (for [cell incremented-x]
-                        (update cell 1 #(+ (- lowest-y) %)))]
+        incremented-x (if (> 0 lowest-x)
+                        (for [cell grid]
+                          (update cell 0 #(+ (- lowest-x) %)))
+                        grid)
+        incremented-y (if (> 0 lowest-y)
+                        (for [cell incremented-x]
+                          (update cell 1 #(+ (- lowest-y) %)))
+                          incremented-x)]
     (into #{} incremented-y)))
 
 (defn- current-x [coordinates]
@@ -38,8 +42,8 @@
   (if (empty? coordinates)
     (format-grid (format-rows grid))
     (if (empty? grid)
-      (recur coordinates (empty-grid-correct-size coordinates grid x y) (highest x 0 coordinates) (highest y 1 coordinates) )
-      (recur (remaining coordinates) (updated grid coordinates) x y) )))
+      (recur (correct-coordinates coordinates) (empty-grid-correct-size (correct-coordinates coordinates) grid x y) (highest x 0 (correct-coordinates coordinates)) (highest y 1 (correct-coordinates coordinates)) )
+      (recur (remaining (correct-coordinates coordinates)) (updated grid (correct-coordinates coordinates)) x y) )) )
 
 (defn display [coordinates]
   (println (create-grid coordinates [] 0 0)))

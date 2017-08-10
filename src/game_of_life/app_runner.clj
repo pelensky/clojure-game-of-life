@@ -3,7 +3,6 @@
             [game-of-life.life :as life]))
 
 (defn generations [world]
-  (println world)
   (let [next-generation (life/evolve world)]
   (display/display world)
   (if (>= 0 (count world))

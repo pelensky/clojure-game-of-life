@@ -45,5 +45,9 @@
 
           (it "works on the lowest number"
               (should= #{[0 0] [1 0]}
-                       (correct-coordinates #{[-2 0] [-1 0]}))))
+                       (correct-coordinates #{[-2 0] [-1 0]})))
+
+          (it "does not affect positive numbers"
+              (should= #{ [1 1] [2 2]}
+                       (correct-coordinates #{[1 1] [2 2]}))))
 
