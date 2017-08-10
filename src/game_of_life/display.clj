@@ -4,23 +4,17 @@
   (print (str (char 27) "[2J"))
   (print (str (char 27) "[;H")))
 
-(defn increment-x-coordinates [coordinates lowest-x]
-  (if (> 0 lowest-x)
+(defn increment-coordinates [coordinates lowest position]
+  (if (> 0 lowest)
     (for [cell coordinates]
-      (update cell 0 #(+ (- lowest-x) %)))
-    coordinates))
-
-(defn increment-y-coordinates [coordinates lowest-y]
-  (if (> 0 lowest-y)
-    (for [cell coordinates]
-      (update cell 1 #(+ (- lowest-y) %)))
+      (update cell position #(+ (- lowest) %)))
     coordinates))
 
 (defn correct-coordinates [coordinates]
   (let [lowest-x (apply min (map #(get % 0) coordinates))
         lowest-y (apply min (map #(get % 1) coordinates))
-        incremented-x (increment-x-coordinates coordinates lowest-x)]
-    (into #{} (increment-y-coordinates incremented-x lowest-y))))
+        incremented-x (increment-coordinates coordinates lowest-x 0)]
+    (into #{} (increment-coordinates incremented-x lowest-y 1))))
 
 (defn- current-x [coordinates]
   (get (first coordinates) 0))
