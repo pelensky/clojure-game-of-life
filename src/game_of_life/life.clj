@@ -28,12 +28,10 @@
 
 (defn live-on? [cell grid]
   (let [live-neighbours (count-live-neighbours cell grid)]
-    (if (and (>= live-neighbours fewest-neighbours-to-stay-living) (<= live-neighbours most-neighbours-to-stay-living))
-      true)))
+    (and (>= live-neighbours fewest-neighbours-to-stay-living) (<= live-neighbours most-neighbours-to-stay-living))))
 
 (defn regenerate? [cell grid]
-  (if (= exact-neighbours-to-regenerate (count-live-neighbours cell grid))
-    true))
+  (= exact-neighbours-to-regenerate (count-live-neighbours cell grid)))
 
 (defn evolve [grid]
   (let [regenerated (clojure.set/select #(regenerate? % grid) (find-all-non-living-neighbours grid))

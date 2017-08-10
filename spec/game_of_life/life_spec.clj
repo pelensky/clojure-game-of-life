@@ -33,15 +33,15 @@
                        (live-on? [0 0] [[-1 0] [0 0] [-1 -1] [0 -1]])))
 
           (it "A cell with 4 live neighbours dies"
-              (should= nil
+              (should= false
                        (live-on? [0 0] [[-1 -1] [-1 +1] [0 0] [+1 +1] [+1 -1]])))
 
           (it "A dead cell with 2 live neighbours does not regenerate"
-              (should= nil
+              (should= false
                        (regenerate? [1 1] [[2 0] [0 2]])))
 
           (it "A dead cell with 4 live neighbours does not regenerate"
-              (should= nil
+              (should= false
                        (regenerate? [1 1] [[0 0] [2 0] [1 0] [0 2]])))
 
           (it "A dead cell with 3 live neighbours regenerates"
