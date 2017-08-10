@@ -49,6 +49,7 @@
       (recur (remaining (correct-coordinates coordinates)) (updated grid (correct-coordinates coordinates)) x y) )) )
 
 (defn display [coordinates]
+  (clear-screen)
   (println (create-grid coordinates [] 0 0)))
 
 (defn welcome []
